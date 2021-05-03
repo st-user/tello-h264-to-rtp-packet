@@ -46,6 +46,15 @@ ffmpeg -f avfoundation -list_devices true -i "" # list available devices.
 ffmpeg -f avfoundation -framerate 30 -video_size 640x480 -i "0:none" -c:v libx264 -tune zerolatency -f rawvideo udp://127.0.0.1:11111
 ```
 
+In order to test the app by using another tool such as FFmpeg instead of using Tello, we need to set the size of an udp packet from it properly.
+To do that, we need to set the proper value to `IN_PACKET_SIZE` defined in `main.py`.
+
+For example:
+
+```
+IN_PACKET_SIZE = 1472
+```
+
 ## Reference
 
 ### RTP/H.264
