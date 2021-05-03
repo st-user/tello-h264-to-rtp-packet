@@ -143,7 +143,7 @@ def create_rtp_packet_header(
 class ReceiveTelloWebcamDataProtocol:
 
     """
-        An UDP server protocol receiving h264 packets from Tello
+        An UDP server protocol receiving h264 packets from Tello's webcam
         and converting them to rtp packets.
     """
 
