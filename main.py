@@ -58,10 +58,27 @@ OUT_FU_HEADER_END_IDR = bytes([ 0x45 ])
 
 
 ## Tello EDU
-# IN_PACKET_SIZE = 1460
+IN_PACKET_SIZE = 1460
 
-## ffmpeg
-IN_PACKET_SIZE = 1472
+## 
+#
+# In order to test the app by using another tool such as ffmpeg instead of using Tello,
+# we need to set the size of an udp packet from it properly.
+#
+# EXAMPLE:
+#
+# - list available devices for '-i' option
+# ============================================
+# ffmpeg -f avfoundation -list_devices true -i ""
+# ============================================
+#
+# - Generate video streaming.
+# ============================================
+# ffmpeg -f avfoundation -framerate 30 -video_size 640x480 -i "0:none" -c:v libx264 -tune zerolatency -f rawvideo udp://127.0.0.1:11111
+# ============================================
+# 
+##
+#IN_PACKET_SIZE = 1472
 
 
 RAW_PAYLOAD_SIZE = 1440
@@ -124,6 +141,11 @@ def create_rtp_packet_header(
 
 
 class ReceiveTelloWebcamDataProtocol:
+
+    """
+        An UDP server protocol receiving h264 packets from Tello
+        and converting them to rtp packets.
+    """
 
     def __init__(self, packet_queue):
         self.packet_queue = packet_queue
@@ -254,6 +276,12 @@ class ReceiveTelloWebcamDataProtocol:
 
 class SendTelloCommandProtocol:
 
+    """
+        An UDP Client protocol starting video streaming.
+        In order to start video streaming from Tello,
+        we need to send 'streamon' command.
+    """
+
     def connection_made(self, transport):
         self.transport = transport
         self.transport.sendto('command'.encode())
@@ -271,6 +299,10 @@ class SendTelloCommandProtocol:
 
 
 class SendRtpPacketProtocol:
+
+    """
+        An UDP Client protocol sending rtp packets to a remote peer(e.g. ffplay).
+    """
 
     def __init__(self, packet_queue):
         self.packet_queue = packet_queue
