@@ -83,7 +83,8 @@ IN_PACKET_SIZE = 1472
 
  - [Kurento Blog - RTP (II): Streaming with FFmpeg](https://www.kurento.org/blog/rtp-ii-streaming-ffmpeg)
  - [FFmpeg StreamingGuide](https://fftrac-bg.ffmpeg.org/wiki/StreamingGuide)
- - [avfoundation - ffmpeg](http://underpop.online.fr/f/ffmpeg/help/avfoundation.htm.gz)
+ - [avfoundation - FFmpeg](http://underpop.online.fr/f/ffmpeg/help/avfoundation.htm.gz)
+ - [DirectShow - FFmpeg](https://trac.ffmpeg.org/wiki/DirectShow)
 
 ### Tello
 
